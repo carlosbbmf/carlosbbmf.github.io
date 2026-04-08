@@ -1,0 +1,49 @@
+---
+title: ""
+toc: false
+---
+
+```{=html}
+<div class="hero-block">
+  <img src="assets/profile.jpg" alt="Profile photo" onerror="this.style.display='none'"/>
+  <div class="hero-text">
+    <h1>Your Name</h1>
+    <p class="tagline">PhD Candidate in [Your Field]</p>
+    <p class="affiliation">Your Department · Your University</p>
+  </div>
+</div>
+```
+
+## Welcome
+
+I am a PhD candidate at **Your University**, working in the [Your Lab / Research Group](https://yourlab.edu). My research focuses on **[your main topic]**, with particular interest in [sub-topic A] and [sub-topic B].
+
+I use this space to share work in progress, write about methods and ideas, and make my research more accessible. Posts range from long-form essays to short technical notes — mostly in English, occasionally in Portuguese.
+
+## Research Interests
+
+- **[Interest 1]** — brief description of what draws you to this area
+- **[Interest 2]** — brief description
+- **[Interest 3]** — brief description
+
+## Recent Posts
+
+```{=html}
+<div class="post-card">
+  <p class="meta"><span class="category-badge">Methods</span> June 2025</p>
+  <h3><a href="posts/example-r-post.html">Getting started with multilevel models in R</a></h3>
+  <p>A walkthrough of fitting and interpreting random-effects models using lme4, with a real dataset example.</p>
+</div>
+
+<div class="post-card">
+  <p class="meta"><span class="category-badge">Research</span> May 2025</p>
+  <h3><a href="posts/example-post.html">Why [Your Topic] Matters More Than We Think</a></h3>
+  <p>An accessible introduction to the main questions driving my dissertation work.</p>
+</div>
+```
+
+[→ All posts](posts/index.qmd)
+
+## Contact
+
+Feel free to reach out via [email](mailto:you@institution.edu) or find me on [GitHub](https://github.com/yourusername) and [Twitter/X](https://twitter.com/yourusername).

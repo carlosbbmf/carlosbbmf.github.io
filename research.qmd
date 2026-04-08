@@ -1,0 +1,80 @@
+---
+title: "Research"
+toc: true
+---
+
+My research sits at the intersection of **[Field A]** and **[Field B]**. I am particularly interested in questions about [broad theme], using a combination of [methods, e.g., observational data, experiments, computational approaches].
+
+## Dissertation
+
+**Title: "[Your Dissertation Title]"**
+
+*Advisor: [Advisor Name] · Expected graduation: [Year]*
+
+Brief abstract of your dissertation (2–4 sentences). What is the main question? What data or methods are you using? What do you expect to find or contribute?
+
+---
+
+## Working Papers
+
+```{=html}
+<div class="research-card">
+  <h3>Paper Title Goes Here</h3>
+  <p>
+    With <a href="#">Co-author Name</a> (Institution). <em>Under review at Journal Name.</em>
+  </p>
+  <p>
+    Brief abstract (2–3 sentences). What is the question, how do you answer it, and what is the main result?
+  </p>
+  <div class="tags">
+    <span class="tag">Working Paper</span>
+    <span class="tag">Topic A</span>
+    <span class="tag">Topic B</span>
+  </div>
+  <p style="margin-top:0.8rem; font-size:0.9rem;">
+    📄 <a href="#">PDF</a> &nbsp;·&nbsp;
+    💾 <a href="#">Replication code</a> &nbsp;·&nbsp;
+    📊 <a href="#">Pre-registration</a>
+  </p>
+</div>
+
+<div class="research-card">
+  <h3>Another Working Paper Title</h3>
+  <p>Solo-authored. <em>Draft available upon request.</em></p>
+  <p>
+    Brief abstract. What is the question, how do you answer it, and what is the main result?
+  </p>
+  <div class="tags">
+    <span class="tag">Work in Progress</span>
+    <span class="tag">Topic C</span>
+  </div>
+</div>
+```
+
+---
+
+## Publications
+
+```{=html}
+<div class="research-card">
+  <h3>Published Article Title</h3>
+  <p>
+    <strong>Your Name</strong> and Co-author. <em>Journal Name</em>, Vol. X, No. Y (Year), pp. Z–Z.
+  </p>
+  <p>One-sentence summary of the contribution.</p>
+  <div class="tags">
+    <span class="tag">Published</span>
+    <span class="tag">Topic</span>
+  </div>
+  <p style="margin-top:0.8rem; font-size:0.9rem;">
+    📄 <a href="#">PDF</a> &nbsp;·&nbsp;
+    🔗 <a href="#">Journal link</a>
+  </p>
+</div>
+```
+
+---
+
+## Other Projects
+
+Brief description of any side projects, policy work, or collaborations that don't fit neatly into the sections above.

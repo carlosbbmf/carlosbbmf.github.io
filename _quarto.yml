@@ -1,0 +1,50 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Your Name"
+  description: "PhD Researcher | Your Institution"
+  favicon: favicon.ico
+  
+  navbar:
+    left:
+      - href: index.qmd
+        text: About
+      - href: research.qmd
+        text: Research
+      - href: posts/index.qmd
+        text: Blog
+      - href: cv.qmd
+        text: CV
+    right:
+      - icon: github
+        href: https://github.com/yourusername
+      - icon: twitter
+        href: https://twitter.com/yourusername
+      - icon: envelope
+        href: mailto:you@institution.edu
+
+  page-footer:
+    center: |
+      Built with [Quarto](https://quarto.org) · Hosted on [GitHub Pages](https://pages.github.com)
+
+format:
+  html:
+    theme: 
+      light: [flatly, custom.scss]
+    css: custom.scss
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    fig-align: center
+    fig-cap-location: bottom
+    reference-location: margin
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false

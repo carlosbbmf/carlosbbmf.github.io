@@ -1,0 +1,48 @@
+---
+title: "Why [Your Topic] Matters More Than We Think"
+date: "2025-05-15"
+description: "An accessible introduction to the main questions driving my dissertation work."
+categories: [research, essay]
+---
+
+## Introduction
+
+Start with a hook — a puzzle, a fact, or a question that draws the reader in. Academic writing often buries the lead; a blog post should not.
+
+This post is an accessible overview of [your topic]. I wrote it for readers who are curious about the subject but don't necessarily have a background in [field]. If you want the full technical treatment, you can find my working paper [here](#).
+
+## The Core Question
+
+State the main question in plain language. Why does it matter? What would we gain from answering it?
+
+> *"A good question is half the answer."* — [optional relevant quote]
+
+## What We Know (and Don't Know)
+
+Summarize the existing literature briefly. What has been established? Where are the gaps? This section should be honest about uncertainty.
+
+You can use bullet points for a cleaner read:
+
+- **Finding 1**: brief explanation
+- **Finding 2**: brief explanation  
+- **Open question**: what remains unknown
+
+## My Approach
+
+Describe your research strategy at a high level — not the technical details, but the logic. Why is this the right way to study the question?
+
+## A Preliminary Result
+
+Share something concrete, even if it's preliminary. Readers engage more with tangible findings.
+
+::: {.callout-note}
+**Note:** The results discussed here are from work in progress. Interpretations may change as the project develops.
+:::
+
+## What Comes Next
+
+What are the next steps in your research? What questions does this open up?
+
+## References
+
+List key papers or books you mentioned, formatted however you like (or use Quarto's built-in bibliography support with a `.bib` file).

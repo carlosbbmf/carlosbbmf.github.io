@@ -1,0 +1,75 @@
+---
+title: "Curriculum Vitae"
+toc: true
+---
+
+::: {.callout-note}
+**Download:** [Full CV (PDF)](assets/cv.pdf)
+:::
+
+## Education
+
+**PhD in [Your Field]** · *Expected [Year]*
+Your University, Department of [Department]
+Dissertation: "[Title]" · Advisor: [Name]
+
+**MA in [Field]** · *[Year]*
+Your University
+
+**BA in [Field]** · *[Year]*
+Your Undergraduate Institution
+
+---
+
+## Research Interests
+
+[Interest 1] · [Interest 2] · [Interest 3] · [Interest 4]
+
+---
+
+## Working Papers
+
+- **"Paper Title"** (with Co-author). *Under review at Journal.*
+- **"Another Paper Title"**. *Draft available upon request.*
+
+---
+
+## Publications
+
+- **"Article Title."** *Journal Name* Vol. X, No. Y (Year): Z–Z.
+
+---
+
+## Conference Presentations
+
+- **[Conference Name]**, [City], [Year]. "[Paper Title]."
+- **[Conference Name]**, [City], [Year]. "[Paper Title]."
+
+---
+
+## Teaching
+
+**Teaching Assistant** · Your University
+
+- Course Name (Undergraduate) — [Semester, Year]
+- Course Name (Graduate) — [Semester, Year]
+
+---
+
+## Awards & Fellowships
+
+- [Fellowship / Award Name] — [Granting Institution], [Year]
+- [Fellowship / Award Name] — [Granting Institution], [Year]
+
+---
+
+## Skills
+
+**Software:** R, Stata, Python, LaTeX, Quarto  
+**Languages:** [Language 1] (native), [Language 2] (proficient)
+
+---
+
+## References
+
+Available upon request.

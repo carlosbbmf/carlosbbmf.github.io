@@ -1,0 +1,138 @@
+---
+title: "Getting Started with Multilevel Models in R"
+date: "2025-06-10"
+description: "A walkthrough of fitting and interpreting random-effects models using lme4, with a real dataset example."
+categories: [methods, R, statistics]
+---
+
+## Introduction
+
+Multilevel models (also called mixed-effects or hierarchical models) are essential when your data have a grouped structure — students nested within schools, respondents nested within countries, observations nested within individuals over time.
+
+In this post I walk through a minimal but complete example using the `lme4` package. We'll use the built-in `sleepstudy` dataset to keep things reproducible.
+
+## Setup
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+library(lme4)
+library(ggplot2)
+library(dplyr)
+
+# The sleepstudy dataset:
+# Reaction times (ms) of 18 subjects over 10 days of sleep deprivation
+head(sleepstudy)
+```
+
+## Exploring the Data
+
+Before fitting any model, always look at the data. Here we plot each subject's trajectory:
+
+```{r}
+#| label: fig-spaghetti
+#| fig-cap: "Reaction time by days of sleep deprivation, per subject."
+#| fig-height: 5
+
+ggplot(sleepstudy, aes(x = Days, y = Reaction, group = Subject)) +
+  geom_line(alpha = 0.4, color = "#1a3a5c") +
+  geom_smooth(aes(group = 1), method = "lm", se = FALSE,
+              color = "#c0392b", linewidth = 1.2) +
+  labs(
+    x = "Days of sleep deprivation",
+    y = "Reaction time (ms)",
+    title = "Reaction times increase with sleep deprivation",
+    subtitle = "Each line = one subject; red line = population trend"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+Two things are immediately visible: (1) there is a clear positive trend on average, and (2) subjects vary substantially in both their baseline and their rate of change.
+
+## Fitting the Models
+
+### Baseline: fixed effects only (ignores grouping)
+
+```{r}
+#| label: model-ols
+
+m0 <- lm(Reaction ~ Days, data = sleepstudy)
+summary(m0)
+```
+
+This model treats all 180 observations as independent — which they are not, because we have 10 observations per person.
+
+### Model 1: random intercepts
+
+Allow each subject to have their own baseline reaction time:
+
+```{r}
+#| label: model-ri
+
+m1 <- lmer(Reaction ~ Days + (1 | Subject), data = sleepstudy)
+summary(m1)
+```
+
+### Model 2: random intercepts + random slopes
+
+Allow each subject to have their own baseline *and* their own rate of change:
+
+```{r}
+#| label: model-ris
+
+m2 <- lmer(Reaction ~ Days + (1 + Days | Subject), data = sleepstudy)
+summary(m2)
+```
+
+## Comparing Models
+
+```{r}
+#| label: model-comparison
+
+anova(m1, m2)
+```
+
+The likelihood ratio test strongly favors `m2` — the random slopes model. This makes substantive sense: people differ not just in how tired they start, but in how quickly sleep deprivation affects them.
+
+## Visualizing the Random Effects
+
+```{r}
+#| label: fig-ranef
+#| fig-cap: "Subject-specific intercepts and slopes (BLUPs) from Model 2."
+#| fig-height: 4
+
+ranef_df <- as.data.frame(ranef(m2)$Subject)
+ranef_df$Subject <- rownames(ranef_df)
+names(ranef_df)[1:2] <- c("Intercept", "Slope")
+
+ggplot(ranef_df, aes(x = Intercept, y = Slope, label = Subject)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey60") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey60") +
+  geom_point(color = "#1a3a5c", size = 3) +
+  ggrepel::geom_text_repel(size = 3, color = "#6b6b6b") +
+  labs(
+    x = "Random intercept",
+    y = "Random slope (Days)",
+    title = "Individual deviations from the population trend"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+::: {.callout-tip}
+**Interpretation tip:** Subjects in the upper-right quadrant are slow *and* get slower quickly. Subjects in the lower-left are fast *and* relatively robust to sleep deprivation.
+:::
+
+## Key Takeaways
+
+1. Ignoring the grouped structure inflates Type I error and underestimates standard errors.
+2. Always plot your data before modeling — the spaghetti plot told us we needed random slopes.
+3. `lmer()` syntax: `(1 | group)` = random intercept; `(1 + x | group)` = random intercept and slope.
+
+## Going Further
+
+- Bates et al. (2015) is the canonical reference for `lme4`.
+- For Bayesian multilevel models, see `brms` — same formula syntax, much richer output.
+- For a textbook treatment: Gelman & Hill (2007) *Data Analysis Using Regression and Multilevel/Hierarchical Models*.
