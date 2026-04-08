@@ -1,0 +1,268 @@
+[
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "My research sits at the intersection of [Field A] and [Field B]. I am particularly interested in questions about [broad theme], using a combination of [methods, e.g., observational data, experiments, computational approaches]."
+  },
+  {
+    "objectID": "research.html#dissertation",
+    "href": "research.html#dissertation",
+    "title": "Research",
+    "section": "Dissertation",
+    "text": "Dissertation\nTitle: “[Your Dissertation Title]”\nAdvisor: [Advisor Name] · Expected graduation: [Year]\nBrief abstract of your dissertation (2–4 sentences). What is the main question? What data or methods are you using? What do you expect to find or contribute?"
+  },
+  {
+    "objectID": "research.html#working-papers",
+    "href": "research.html#working-papers",
+    "title": "Research",
+    "section": "Working Papers",
+    "text": "Working Papers\n\n  Paper Title Goes Here\n  \n    With Co-author Name (Institution). Under review at Journal Name.\n  \n  \n    Brief abstract (2–3 sentences). What is the question, how do you answer it, and what is the main result?\n  \n  \n    Working Paper\n    Topic A\n    Topic B\n  \n  \n    📄 PDF  · \n    💾 Replication code  · \n    📊 Pre-registration\n  \n\n\n\n  Another Working Paper Title\n  Solo-authored. Draft available upon request.\n  \n    Brief abstract. What is the question, how do you answer it, and what is the main result?\n  \n  \n    Work in Progress\n    Topic C"
+  },
+  {
+    "objectID": "research.html#publications",
+    "href": "research.html#publications",
+    "title": "Research",
+    "section": "Publications",
+    "text": "Publications\n\n  Published Article Title\n  \n    Your Name and Co-author. Journal Name, Vol. X, No. Y (Year), pp. Z–Z.\n  \n  One-sentence summary of the contribution.\n  \n    Published\n    Topic\n  \n  \n    📄 PDF  · \n    🔗 Journal link"
+  },
+  {
+    "objectID": "research.html#other-projects",
+    "href": "research.html#other-projects",
+    "title": "Research",
+    "section": "Other Projects",
+    "text": "Other Projects\nBrief description of any side projects, policy work, or collaborations that don’t fit neatly into the sections above."
+  },
+  {
+    "objectID": "posts/example-r-post.html",
+    "href": "posts/example-r-post.html",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "",
+    "text": "Multilevel models (also called mixed-effects or hierarchical models) are essential when your data have a grouped structure — students nested within schools, respondents nested within countries, observations nested within individuals over time.\nIn this post I walk through a minimal but complete example using the lme4 package. We’ll use the built-in sleepstudy dataset to keep things reproducible."
+  },
+  {
+    "objectID": "posts/example-r-post.html#introduction",
+    "href": "posts/example-r-post.html#introduction",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "",
+    "text": "Multilevel models (also called mixed-effects or hierarchical models) are essential when your data have a grouped structure — students nested within schools, respondents nested within countries, observations nested within individuals over time.\nIn this post I walk through a minimal but complete example using the lme4 package. We’ll use the built-in sleepstudy dataset to keep things reproducible."
+  },
+  {
+    "objectID": "posts/example-r-post.html#setup",
+    "href": "posts/example-r-post.html#setup",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Setup",
+    "text": "Setup\n\n\nCode\nlibrary(lme4)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# The sleepstudy dataset:\n# Reaction times (ms) of 18 subjects over 10 days of sleep deprivation\nhead(sleepstudy)\n\n\n  Reaction Days Subject\n1 249.5600    0     308\n2 258.7047    1     308\n3 250.8006    2     308\n4 321.4398    3     308\n5 356.8519    4     308\n6 414.6901    5     308"
+  },
+  {
+    "objectID": "posts/example-r-post.html#exploring-the-data",
+    "href": "posts/example-r-post.html#exploring-the-data",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Exploring the Data",
+    "text": "Exploring the Data\nBefore fitting any model, always look at the data. Here we plot each subject’s trajectory:\n\n\nCode\nggplot(sleepstudy, aes(x = Days, y = Reaction, group = Subject)) +\n  geom_line(alpha = 0.4, color = \"#1a3a5c\") +\n  geom_smooth(aes(group = 1), method = \"lm\", se = FALSE,\n              color = \"#c0392b\", linewidth = 1.2) +\n  labs(\n    x = \"Days of sleep deprivation\",\n    y = \"Reaction time (ms)\",\n    title = \"Reaction times increase with sleep deprivation\",\n    subtitle = \"Each line = one subject; red line = population trend\"\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(plot.title = element_text(face = \"bold\"))\n\n\n\n\n\n\n\n\nFigure 1: Reaction time by days of sleep deprivation, per subject.\n\n\n\n\n\nTwo things are immediately visible: (1) there is a clear positive trend on average, and (2) subjects vary substantially in both their baseline and their rate of change."
+  },
+  {
+    "objectID": "posts/example-r-post.html#fitting-the-models",
+    "href": "posts/example-r-post.html#fitting-the-models",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Fitting the Models",
+    "text": "Fitting the Models\n\nBaseline: fixed effects only (ignores grouping)\n\n\nCode\nm0 &lt;- lm(Reaction ~ Days, data = sleepstudy)\nsummary(m0)\n\n\n\nCall:\nlm(formula = Reaction ~ Days, data = sleepstudy)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-110.848  -27.483    1.546   26.142  139.953 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  251.405      6.610  38.033  &lt; 2e-16 ***\nDays          10.467      1.238   8.454 9.89e-15 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 47.71 on 178 degrees of freedom\nMultiple R-squared:  0.2865,    Adjusted R-squared:  0.2825 \nF-statistic: 71.46 on 1 and 178 DF,  p-value: 9.894e-15\n\n\nThis model treats all 180 observations as independent — which they are not, because we have 10 observations per person.\n\n\nModel 1: random intercepts\nAllow each subject to have their own baseline reaction time:\n\n\nCode\nm1 &lt;- lmer(Reaction ~ Days + (1 | Subject), data = sleepstudy)\nsummary(m1)\n\n\nLinear mixed model fit by REML ['lmerMod']\nFormula: Reaction ~ Days + (1 | Subject)\n   Data: sleepstudy\n\nREML criterion at convergence: 1786.5\n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-3.2257 -0.5529  0.0109  0.5188  4.2506 \n\nRandom effects:\n Groups   Name        Variance Std.Dev.\n Subject  (Intercept) 1378.2   37.12   \n Residual              960.5   30.99   \nNumber of obs: 180, groups:  Subject, 18\n\nFixed effects:\n            Estimate Std. Error t value\n(Intercept) 251.4051     9.7467   25.79\nDays         10.4673     0.8042   13.02\n\nCorrelation of Fixed Effects:\n     (Intr)\nDays -0.371\n\n\n\n\nModel 2: random intercepts + random slopes\nAllow each subject to have their own baseline and their own rate of change:\n\n\nCode\nm2 &lt;- lmer(Reaction ~ Days + (1 + Days | Subject), data = sleepstudy)\nsummary(m2)\n\n\nLinear mixed model fit by REML ['lmerMod']\nFormula: Reaction ~ Days + (1 + Days | Subject)\n   Data: sleepstudy\n\nREML criterion at convergence: 1743.6\n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-3.9536 -0.4634  0.0231  0.4634  5.1793 \n\nRandom effects:\n Groups   Name        Variance Std.Dev. Corr\n Subject  (Intercept) 612.10   24.741       \n          Days         35.07    5.922   0.07\n Residual             654.94   25.592       \nNumber of obs: 180, groups:  Subject, 18\n\nFixed effects:\n            Estimate Std. Error t value\n(Intercept)  251.405      6.825  36.838\nDays          10.467      1.546   6.771\n\nCorrelation of Fixed Effects:\n     (Intr)\nDays -0.138"
+  },
+  {
+    "objectID": "posts/example-r-post.html#comparing-models",
+    "href": "posts/example-r-post.html#comparing-models",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Comparing Models",
+    "text": "Comparing Models\n\n\nCode\nanova(m1, m2)\n\n\nData: sleepstudy\nModels:\nm1: Reaction ~ Days + (1 | Subject)\nm2: Reaction ~ Days + (1 + Days | Subject)\n   npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)    \nm1    4 1802.1 1814.8 -897.04    1794.1                         \nm2    6 1763.9 1783.1 -875.97    1751.9 42.139  2  7.072e-10 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe likelihood ratio test strongly favors m2 — the random slopes model. This makes substantive sense: people differ not just in how tired they start, but in how quickly sleep deprivation affects them."
+  },
+  {
+    "objectID": "posts/example-r-post.html#visualizing-the-random-effects",
+    "href": "posts/example-r-post.html#visualizing-the-random-effects",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Visualizing the Random Effects",
+    "text": "Visualizing the Random Effects\n\n\nCode\nranef_df &lt;- as.data.frame(ranef(m2)$Subject)\nranef_df$Subject &lt;- rownames(ranef_df)\nnames(ranef_df)[1:2] &lt;- c(\"Intercept\", \"Slope\")\n\nggplot(ranef_df, aes(x = Intercept, y = Slope, label = Subject)) +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"grey60\") +\n  geom_vline(xintercept = 0, linetype = \"dashed\", color = \"grey60\") +\n  geom_point(color = \"#1a3a5c\", size = 3) +\n  ggrepel::geom_text_repel(size = 3, color = \"#6b6b6b\") +\n  labs(\n    x = \"Random intercept\",\n    y = \"Random slope (Days)\",\n    title = \"Individual deviations from the population trend\"\n  ) +\n  theme_minimal(base_size = 12)\n\n\n\n\n\n\n\n\nFigure 2: Subject-specific intercepts and slopes (BLUPs) from Model 2.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nInterpretation tip: Subjects in the upper-right quadrant are slow and get slower quickly. Subjects in the lower-left are fast and relatively robust to sleep deprivation."
+  },
+  {
+    "objectID": "posts/example-r-post.html#key-takeaways",
+    "href": "posts/example-r-post.html#key-takeaways",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nIgnoring the grouped structure inflates Type I error and underestimates standard errors.\nAlways plot your data before modeling — the spaghetti plot told us we needed random slopes.\nlmer() syntax: (1 | group) = random intercept; (1 + x | group) = random intercept and slope."
+  },
+  {
+    "objectID": "posts/example-r-post.html#going-further",
+    "href": "posts/example-r-post.html#going-further",
+    "title": "Getting Started with Multilevel Models in R",
+    "section": "Going Further",
+    "text": "Going Further\n\nBates et al. (2015) is the canonical reference for lme4.\nFor Bayesian multilevel models, see brms — same formula syntax, much richer output.\nFor a textbook treatment: Gelman & Hill (2007) Data Analysis Using Regression and Multilevel/Hierarchical Models."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "",
+    "section": "Welcome",
+    "text": "Welcome\nI am a PhD candidate at Your University, working in the Your Lab / Research Group. My research focuses on [your main topic], with particular interest in [sub-topic A] and [sub-topic B].\nI use this space to share work in progress, write about methods and ideas, and make my research more accessible. Posts range from long-form essays to short technical notes — mostly in English, occasionally in Portuguese."
+  },
+  {
+    "objectID": "index.html#research-interests",
+    "href": "index.html#research-interests",
+    "title": "",
+    "section": "Research Interests",
+    "text": "Research Interests\n\n[Interest 1] — brief description of what draws you to this area\n[Interest 2] — brief description\n[Interest 3] — brief description"
+  },
+  {
+    "objectID": "index.html#recent-posts",
+    "href": "index.html#recent-posts",
+    "title": "",
+    "section": "Recent Posts",
+    "text": "Recent Posts\n\n  Methods June 2025\n  Getting started with multilevel models in R\n  A walkthrough of fitting and interpreting random-effects models using lme4, with a real dataset example.\n\n\n\n  Research May 2025\n  Why [Your Topic] Matters More Than We Think\n  An accessible introduction to the main questions driving my dissertation work.\n\n→ All posts"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "",
+    "section": "Contact",
+    "text": "Contact\nFeel free to reach out via email or find me on GitHub and Twitter/X."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Note\n\n\n\nDownload: Full CV (PDF)"
+  },
+  {
+    "objectID": "cv.html#education",
+    "href": "cv.html#education",
+    "title": "Curriculum Vitae",
+    "section": "Education",
+    "text": "Education\nPhD in [Your Field] · Expected [Year] Your University, Department of [Department] Dissertation: “[Title]” · Advisor: [Name]\nMA in [Field] · [Year] Your University\nBA in [Field] · [Year] Your Undergraduate Institution"
+  },
+  {
+    "objectID": "cv.html#research-interests",
+    "href": "cv.html#research-interests",
+    "title": "Curriculum Vitae",
+    "section": "Research Interests",
+    "text": "Research Interests\n[Interest 1] · [Interest 2] · [Interest 3] · [Interest 4]"
+  },
+  {
+    "objectID": "cv.html#working-papers",
+    "href": "cv.html#working-papers",
+    "title": "Curriculum Vitae",
+    "section": "Working Papers",
+    "text": "Working Papers\n\n“Paper Title” (with Co-author). Under review at Journal.\n“Another Paper Title”. Draft available upon request."
+  },
+  {
+    "objectID": "cv.html#publications",
+    "href": "cv.html#publications",
+    "title": "Curriculum Vitae",
+    "section": "Publications",
+    "text": "Publications\n\n“Article Title.” Journal Name Vol. X, No. Y (Year): Z–Z."
+  },
+  {
+    "objectID": "cv.html#conference-presentations",
+    "href": "cv.html#conference-presentations",
+    "title": "Curriculum Vitae",
+    "section": "Conference Presentations",
+    "text": "Conference Presentations\n\n[Conference Name], [City], [Year]. “[Paper Title].”\n[Conference Name], [City], [Year]. “[Paper Title].”"
+  },
+  {
+    "objectID": "cv.html#teaching",
+    "href": "cv.html#teaching",
+    "title": "Curriculum Vitae",
+    "section": "Teaching",
+    "text": "Teaching\nTeaching Assistant · Your University\n\nCourse Name (Undergraduate) — [Semester, Year]\nCourse Name (Graduate) — [Semester, Year]"
+  },
+  {
+    "objectID": "cv.html#awards-fellowships",
+    "href": "cv.html#awards-fellowships",
+    "title": "Curriculum Vitae",
+    "section": "Awards & Fellowships",
+    "text": "Awards & Fellowships\n\n[Fellowship / Award Name] — [Granting Institution], [Year]\n[Fellowship / Award Name] — [Granting Institution], [Year]"
+  },
+  {
+    "objectID": "cv.html#skills",
+    "href": "cv.html#skills",
+    "title": "Curriculum Vitae",
+    "section": "Skills",
+    "text": "Skills\nSoftware: R, Stata, Python, LaTeX, Quarto\nLanguages: [Language 1] (native), [Language 2] (proficient)"
+  },
+  {
+    "objectID": "cv.html#references",
+    "href": "cv.html#references",
+    "title": "Curriculum Vitae",
+    "section": "References",
+    "text": "References\nAvailable upon request."
+  },
+  {
+    "objectID": "posts/example-post.html",
+    "href": "posts/example-post.html",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "",
+    "text": "Start with a hook — a puzzle, a fact, or a question that draws the reader in. Academic writing often buries the lead; a blog post should not.\nThis post is an accessible overview of [your topic]. I wrote it for readers who are curious about the subject but don’t necessarily have a background in [field]. If you want the full technical treatment, you can find my working paper here."
+  },
+  {
+    "objectID": "posts/example-post.html#introduction",
+    "href": "posts/example-post.html#introduction",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "",
+    "text": "Start with a hook — a puzzle, a fact, or a question that draws the reader in. Academic writing often buries the lead; a blog post should not.\nThis post is an accessible overview of [your topic]. I wrote it for readers who are curious about the subject but don’t necessarily have a background in [field]. If you want the full technical treatment, you can find my working paper here."
+  },
+  {
+    "objectID": "posts/example-post.html#the-core-question",
+    "href": "posts/example-post.html#the-core-question",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "The Core Question",
+    "text": "The Core Question\nState the main question in plain language. Why does it matter? What would we gain from answering it?\n\n“A good question is half the answer.” — [optional relevant quote]"
+  },
+  {
+    "objectID": "posts/example-post.html#what-we-know-and-dont-know",
+    "href": "posts/example-post.html#what-we-know-and-dont-know",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "What We Know (and Don’t Know)",
+    "text": "What We Know (and Don’t Know)\nSummarize the existing literature briefly. What has been established? Where are the gaps? This section should be honest about uncertainty.\nYou can use bullet points for a cleaner read:\n\nFinding 1: brief explanation\nFinding 2: brief explanation\n\nOpen question: what remains unknown"
+  },
+  {
+    "objectID": "posts/example-post.html#my-approach",
+    "href": "posts/example-post.html#my-approach",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "My Approach",
+    "text": "My Approach\nDescribe your research strategy at a high level — not the technical details, but the logic. Why is this the right way to study the question?"
+  },
+  {
+    "objectID": "posts/example-post.html#a-preliminary-result",
+    "href": "posts/example-post.html#a-preliminary-result",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "A Preliminary Result",
+    "text": "A Preliminary Result\nShare something concrete, even if it’s preliminary. Readers engage more with tangible findings.\n\n\n\n\n\n\nNote\n\n\n\nNote: The results discussed here are from work in progress. Interpretations may change as the project develops."
+  },
+  {
+    "objectID": "posts/example-post.html#what-comes-next",
+    "href": "posts/example-post.html#what-comes-next",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "What Comes Next",
+    "text": "What Comes Next\nWhat are the next steps in your research? What questions does this open up?"
+  },
+  {
+    "objectID": "posts/example-post.html#references",
+    "href": "posts/example-post.html#references",
+    "title": "Why [Your Topic] Matters More Than We Think",
+    "section": "References",
+    "text": "References\nList key papers or books you mentioned, formatted however you like (or use Quarto’s built-in bibliography support with a .bib file)."
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Occasional writing on research ideas, methods, and academic life. Posts range from accessible essays to technical notes with code.\n\n\n\n\n\n\n\n\n\n\n\nGetting Started with Multilevel Models in R\n\n\n\nmethods\n\nR\n\nstatistics\n\n\n\nA walkthrough of fitting and interpreting random-effects models using lme4, with a real dataset example.\n\n\n\n\n\nJun 10, 2025\n\n3 min\n\n\n\n\n\n\nWhy [Your Topic] Matters More Than We Think\n\n\n\nresearch\n\nessay\n\n\n\nAn accessible introduction to the main questions driving my dissertation work.\n\n\n\n\n\nMay 15, 2025\n\n2 min\n\n\n\n\nNo matching items"
+  }
+]
